@@ -12,13 +12,21 @@ class ToDoApp extends StatelessWidget {
       designSize: const Size(420, 812),
       minTextAdapt: true,
       splitScreenMode: true,
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        localizationsDelegates: context.localizationDelegates,
-        supportedLocales: context.supportedLocales,
-        locale: context.locale,
-        home: SplashScreen(),
-      ),
+      builder: (context, child) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          localizationsDelegates: context.localizationDelegates,
+          supportedLocales: context.supportedLocales,
+          locale: context.locale,
+          theme: ThemeData(
+            iconTheme: IconThemeData(
+              color: Colors.deepPurple.shade100,
+              size: 60.sp,
+            ),
+          ),
+          home: SplashScreen(),
+        );
+      },
     );
   }
 }
