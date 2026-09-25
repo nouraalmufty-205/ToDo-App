@@ -1,16 +1,7 @@
-# todoapp
+Splash Screen
 
-A new Flutter project.
+<img width="603" height="1311" alt="image" src="https://github.com/user-attachments/assets/ffa5da0e-b6e5-4129-987a-f675fd50f3c6" />
 
-## Getting Started
+Login Screen
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<img width="1206" height="2622" alt="Simulator Screenshot - iPhone 17 Pro - 2026-09-25 at 22 36 41" src="https://github.com/user-attachments/assets/2d6dd08e-19d4-45f4-9cc9-b5997faaf03b" />
