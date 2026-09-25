@@ -5,3 +5,7 @@ Splash Screen
 Login Screen
 
 <img width="1206" height="2622" alt="Simulator Screenshot - iPhone 17 Pro - 2026-09-25 at 22 36 41" src="https://github.com/user-attachments/assets/2d6dd08e-19d4-45f4-9cc9-b5997faaf03b" />
+
+Bottom Sheet
+
+<img width="352" height="781" alt="image" src="https://github.com/user-attachments/assets/a1a90327-ec58-4d4c-97cc-be7785514e73" />
