@@ -3,9 +3,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:todoapp/core/utile/app_constants.dart';
 import 'package:todoapp/core/widgets/purplebutton.dart';
 import 'package:todoapp/features/home/homescreen.dart';
+import 'package:todoapp/features/login/data/user_model.dart';
 import 'package:todoapp/gen/locale_keys.g.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -29,6 +32,25 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() {});
   }
 
+  SaveUserData(UserModel user) {
+    Hive.box<UserModel>(AppConstants.userBox)
+        .put(AppConstants.currentUser, user)
+        .then((value) {
+          print(
+            'SAVED. length: ${Hive.box<UserModel>(AppConstants.userBox).length}',
+          );
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => HomePage()),
+          );
+        })
+        .catchError((error) {
+          print(error);
+        });
+  }
+
+  var nameController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,6 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 onTap: () {
                   showModalBottomSheet(
                     context: context,
+
                     builder: (context) => Padding(
                       padding: EdgeInsets.all(16.0.r),
                       child: Column(
@@ -59,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           15.verticalSpace,
                           PurpleButton(
-                            title: "Gallary",
+                            title: "Gallery",
                             onTap: () {
                               Navigator.pop(context);
                               pickImageFromGallery();
@@ -100,6 +123,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   10.verticalSpace,
                   TextFormField(
+                    controller: nameController,
                     decoration: InputDecoration(
                       fillColor: Colors.white,
                       filled: true,
@@ -129,9 +153,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   PurpleButton(
                     title: LocaleKeys.continue_button.tr(),
                     onTap: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => HomePage()),
+                      SaveUserData(
+                        UserModel(
+                          name: nameController.text,
+                          image: photo?.path ?? "",
+                        ),
                       );
                     },
                   ),

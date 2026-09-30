@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:lottie/lottie.dart';
+import 'package:todoapp/core/utile/app_constants.dart';
+import 'package:todoapp/features/home/homescreen.dart';
+import 'package:todoapp/features/login/data/user_model.dart';
 
 import 'package:todoapp/features/login/loginscreens.dart';
 
@@ -14,6 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    print('SPLASH initState');
     Future.delayed(Duration(seconds: 3), () {
       if (!mounted) return;
       Navigator.pushReplacement(
@@ -21,7 +26,21 @@ class _SplashScreenState extends State<SplashScreen> {
         MaterialPageRoute(builder: (context) => LoginScreen()),
       );
     });
-    super.initState();
+  }
+
+  nextPage() {
+    UserModel? user = Hive.box<UserModel>(
+      AppConstants.userBox,
+    ).get(AppConstants.currentUser);
+
+    if (user == null) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => user == null ? LoginScreen() : HomePage(),
+        ),
+      );
+    }
   }
 
   @override
