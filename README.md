@@ -9,3 +9,8 @@ Login Screen
 Bottom Sheet
 
 <img width="352" height="781" alt="image" src="https://github.com/user-attachments/assets/a1a90327-ec58-4d4c-97cc-be7785514e73" />
+
+Home Screen
+
+<img width="313" height="677" alt="image" src="https://github.com/user-attachments/assets/74cd21f7-e7c0-4924-addc-0578d78e760c" />
+
