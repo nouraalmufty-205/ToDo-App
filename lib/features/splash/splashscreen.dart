@@ -18,13 +18,9 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    print('SPLASH initState');
+
     Future.delayed(Duration(seconds: 3), () {
-      if (!mounted) return;
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => LoginScreen()),
-      );
+      nextPage();
     });
   }
 
@@ -33,14 +29,12 @@ class _SplashScreenState extends State<SplashScreen> {
       AppConstants.userBox,
     ).get(AppConstants.currentUser);
 
-    if (user == null) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => user == null ? LoginScreen() : HomePage(),
-        ),
-      );
-    }
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => user == null ? LoginScreen() : HomePage(),
+      ),
+    );
   }
 
   @override

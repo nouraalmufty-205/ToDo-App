@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -41,7 +42,16 @@ class HomeBar extends StatelessWidget {
           ],
         ),
         Spacer(),
-        Icon(Icons.notifications_none_outlined, size: 30, color: Colors.black),
+        IconButton(
+          icon: Icon(Icons.language, size: 30, color: Colors.black),
+          onPressed: () {
+            if (context.locale.languageCode == 'en') {
+              context.setLocale(Locale('ar'));
+            } else {
+              context.setLocale(Locale('en'));
+            }
+          },
+        ),
       ],
     );
   }

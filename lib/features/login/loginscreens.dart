@@ -36,9 +36,6 @@ class _LoginScreenState extends State<LoginScreen> {
     Hive.box<UserModel>(AppConstants.userBox)
         .put(AppConstants.currentUser, user)
         .then((value) {
-          print(
-            'SAVED. length: ${Hive.box<UserModel>(AppConstants.userBox).length}',
-          );
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => HomePage()),
@@ -153,6 +150,17 @@ class _LoginScreenState extends State<LoginScreen> {
                   PurpleButton(
                     title: LocaleKeys.continue_button.tr(),
                     onTap: () {
+                      if (photo == null) {
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: Text("Error"),
+                            content: Text("image is required "),
+                          ),
+                        );
+
+                        return;
+                      }
                       SaveUserData(
                         UserModel(
                           name: nameController.text,
