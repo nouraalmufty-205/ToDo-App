@@ -14,3 +14,8 @@ Home Screen
 
 <img width="313" height="677" alt="image" src="https://github.com/user-attachments/assets/74cd21f7-e7c0-4924-addc-0578d78e760c" />
 
+Task Screen
+
+<img width="324" height="670" alt="image" src="https://github.com/user-attachments/assets/c94d6a18-cf34-47ce-8614-8a7504c8f888" />
+
+
