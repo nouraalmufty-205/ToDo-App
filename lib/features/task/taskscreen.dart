@@ -69,7 +69,7 @@ class _TaskScreenState extends State<TaskScreen> {
                     ),
                   ),
 
-                  10.horizontalSpace,
+                  10.verticalSpace,
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -97,10 +97,12 @@ class _TaskScreenState extends State<TaskScreen> {
                   ),
                 ],
               ),
+              20.verticalSpace,
               Text(
                 "Status",
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
               ),
+              10.verticalSpace,
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                 decoration: BoxDecoration(
