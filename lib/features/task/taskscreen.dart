@@ -1,5 +1,12 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:todoapp/core/model/task_model.dart';
+import 'package:todoapp/core/utile/app_constants.dart';
+import 'package:todoapp/core/widgets/purplebutton.dart';
+import 'package:todoapp/features/task/widgets/dropdownstatus.dart';
 import 'package:todoapp/features/task/widgets/inputfield.dart';
 
 class TaskScreen extends StatefulWidget {
@@ -10,7 +17,41 @@ class TaskScreen extends StatefulWidget {
 }
 
 class _TaskScreenState extends State<TaskScreen> {
-  String _selectedStatus = 'Pending';
+  List<Color> taskcolors = [
+    Colors.blue,
+    Colors.orange,
+    Colors.red,
+    Colors.green,
+    Colors.black,
+  ];
+  var titleController = TextEditingController();
+  var descritptionController = TextEditingController();
+  var dateController = TextEditingController();
+  var timeController = TextEditingController();
+  var statusController = TextEditingController();
+  int? selectedColor;
+
+  @override
+  void dispose() {
+    titleController.dispose();
+    descritptionController.dispose();
+    dateController.dispose();
+    timeController.dispose();
+    statusController.dispose();
+    super.dispose();
+  }
+
+  void savetask(TaskModel task) {
+    Hive.box<TaskModel>(AppConstants.taskUser)
+        .add(task)
+        .then((value) {
+          Navigator.pop(context);
+        })
+        .catchError((e) {
+          print("error $e");
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +73,7 @@ class _TaskScreenState extends State<TaskScreen> {
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
               ),
               10.verticalSpace,
-              InputField(title: "add a title"),
+              InputField(title: "Add a Title", controller: titleController),
               20.verticalSpace,
 
               Text(
@@ -40,7 +81,11 @@ class _TaskScreenState extends State<TaskScreen> {
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
               ),
               10.verticalSpace,
-              InputField(title: "Task Description", lines: 4),
+              InputField(
+                title: "Task Description",
+                lines: 4,
+                controller: descritptionController,
+              ),
               20.verticalSpace,
               Row(
                 children: [
@@ -57,19 +102,23 @@ class _TaskScreenState extends State<TaskScreen> {
                         ),
                         10.verticalSpace,
                         InputField(
+                          controller: timeController,
                           title: "Time",
                           onTap: () {
                             showTimePicker(
                               context: context,
                               initialTime: TimeOfDay.now(),
-                            );
+                            ).then((value) {
+                              timeController.text =
+                                  value?.format(context) ?? '';
+                            });
                           },
                         ),
                       ],
                     ),
                   ),
 
-                  10.verticalSpace,
+                  10.horizontalSpace,
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -83,13 +132,18 @@ class _TaskScreenState extends State<TaskScreen> {
                         ),
                         10.verticalSpace,
                         InputField(
+                          controller: dateController,
                           title: "Date",
                           onTap: () {
                             showDatePicker(
                               context: context,
                               firstDate: DateTime.now(),
                               lastDate: DateTime(2027),
-                            );
+                            ).then((value) {
+                              dateController.text = DateFormat.MEd().format(
+                                value ?? DateTime.now(),
+                              );
+                            });
                           },
                         ),
                       ],
@@ -103,28 +157,54 @@ class _TaskScreenState extends State<TaskScreen> {
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
               ),
               10.verticalSpace,
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 16.w),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20.r),
-                ),
-                child: DropdownButton<String>(
-                  value: _selectedStatus,
-                  isExpanded: true,
-                  dropdownColor: Colors.white,
-                  underline: const SizedBox(),
-                  items: ['Pending', 'Done', 'In Progress']
-                      .map((s) => DropdownMenuItem(value: s, child: Text(s)))
-                      .toList(),
-                  onChanged: (value) =>
-                      setState(() => _selectedStatus = value!),
-                ),
+              DropDownStatus(
+                onChange: (v) {
+                  statusController.text = v ?? '';
+                },
               ),
+
               20.verticalSpace,
               Text(
                 "Choose Color",
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
+              ),
+              10.verticalSpace,
+              SizedBox(
+                height: 40.h,
+                child: ListView.separated(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: taskcolors.length,
+                  itemBuilder: (context, index) => InkWell(
+                    onTap: () {
+                      setState(() {
+                        selectedColor = index;
+                      });
+                    },
+                    child: CircleAvatar(
+                      backgroundColor: taskcolors[index],
+                      child: index == selectedColor
+                          ? Icon(Icons.check, color: Colors.white)
+                          : null,
+                    ),
+                  ),
+                  separatorBuilder: (context, index) => 10.horizontalSpace,
+                ),
+              ),
+              20.verticalSpace,
+              PurpleButton(
+                title: "Save Task",
+                onTap: () {
+                  savetask(
+                    TaskModel(
+                      title: titleController.text,
+                      description: descritptionController.text,
+                      status: statusController.text,
+                      date: dateController.text,
+                      time: timeController.text,
+                      color: taskcolors[selectedColor ?? 0].toARGB32(),
+                    ),
+                  );
+                },
               ),
             ],
           ),
