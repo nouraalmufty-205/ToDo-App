@@ -12,11 +12,11 @@ Bottom Sheet
 
 Home Screen
 
-<img width="313" height="677" alt="image" src="https://github.com/user-attachments/assets/74cd21f7-e7c0-4924-addc-0578d78e760c" />
+<img width="322" height="690" alt="image" src="https://github.com/user-attachments/assets/11a71087-c408-47ce-a25d-3dad4879f1ad" />
 
 Task Screen
 
-<img width="320" height="681" alt="image" src="https://github.com/user-attachments/assets/0a85a710-8b1a-4d23-bfef-d465482dffc4" />
+<img width="331" height="693" alt="image" src="https://github.com/user-attachments/assets/98666530-9ac1-4e60-8830-2db9afb41dc5" />
 
 XO Game URL
 
