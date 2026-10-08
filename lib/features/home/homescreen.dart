@@ -55,13 +55,24 @@ class _HomePageState extends State<HomePage> {
                   ? Expanded(
                       child: ListView.separated(
                         padding: EdgeInsets.only(bottom: 20.h),
-                        itemBuilder: (context, index) =>
-                            TaskCard(taskModel: tasks[index]),
+                        itemBuilder: (context, index) => InkWell(
+                          onLongPress: () async {
+                            await Hive.box<TaskModel>(
+                              AppConstants.taskUser,
+                            ).deleteAt(index);
+                            setState(() {});
+                          },
+                          child: TaskCard(taskModel: tasks[index]),
+                        ),
                         separatorBuilder: (context, index) => 10.verticalSpace,
                         itemCount: tasks.length,
                       ),
                     )
-                  : Lottie.asset('assets/translations/icons/Notes.json'),
+                  : Expanded(
+                      child: Lottie.asset(
+                        'assets/translations/icons/Notes.json',
+                      ),
+                    ),
             ],
           ),
         ),
