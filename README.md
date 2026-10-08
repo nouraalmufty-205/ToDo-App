@@ -1,3 +1,7 @@
+app Icon
+
+<img width="87" height="123" alt="image" src="https://github.com/user-attachments/assets/a8d39497-6b16-436a-bfa8-d98036c01977" />
+
 Splash Screen
 
 <img width="603" height="1311" alt="image" src="https://github.com/user-attachments/assets/ffa5da0e-b6e5-4129-987a-f675fd50f3c6" />
