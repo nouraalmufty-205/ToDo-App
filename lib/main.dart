@@ -14,6 +14,7 @@ void main() async {
   Hive.registerAdapter(TaskModelAdapter());
   await Hive.openBox<UserModel>(AppConstants.userBox);
   await Hive.openBox<TaskModel>(AppConstants.taskUser);
+  Hive.box<TaskModel>(AppConstants.taskUser).clear();
   runApp(
     EasyLocalization(
       supportedLocales: [Locale('en'), Locale('ar')],

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:todoapp/core/model/task_model.dart';
 
 class TaskCard extends StatelessWidget {
-  const TaskCard({super.key});
+  final TaskModel? taskModel;
+  const TaskCard({super.key, required this.taskModel});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,7 @@ class TaskCard extends StatelessWidget {
               height: 60.h,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30.r),
-                color: Colors.blue,
+                color: Color(taskModel!.color),
               ),
             ),
             16.horizontalSpace,
@@ -32,14 +34,14 @@ class TaskCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Flutter UI",
+                    taskModel!.title,
                     style: TextStyle(
                       fontSize: 20.sp,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                   Text(
-                    "Build Register Screen",
+                    taskModel?.description ?? "",
                     style: TextStyle(
                       fontSize: 16.sp,
                       color: Colors.grey.shade500,
@@ -47,7 +49,7 @@ class TaskCard extends StatelessWidget {
                   ),
                   DecoratedBox(
                     decoration: BoxDecoration(
-                      color: Colors.blue.shade100,
+                      color: Color(taskModel!.color).withValues(alpha: .3),
                       borderRadius: BorderRadius.circular(20.r),
                     ),
                     child: Padding(
@@ -56,9 +58,9 @@ class TaskCard extends StatelessWidget {
                         vertical: 6.h,
                       ),
                       child: Text(
-                        "Pending",
+                        taskModel?.status ?? "",
                         style: TextStyle(
-                          color: Colors.blue,
+                          color: Color(taskModel!.color),
                           fontWeight: FontWeight.w600,
                           fontSize: 13.sp,
                         ),
