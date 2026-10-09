@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/Users/nouraalmufty/development/ToDoApp/todoapp/lib/features/add_task/counter",
+      "program": "/Users/nouraalmufty/development/ToDoApp/todoapp/lib/features/add_task/counter/build/Debug/outDebug"
+    }
+  ]
+}
